@@ -1,16 +1,13 @@
-let active = false;
-
-function makeOrange(color: string): void {
+function changeBgColor(color: string): void {
   document.body.style.backgroundColor = color;
 }
 
 chrome.action.onClicked.addListener((tab) => {
-  active = !active;
-  const color = active ? 'orange' : 'white';
+  const color = 'blue';
   chrome.scripting
     .executeScript({
       target: { tabId: tab.id ? tab.id : -1 },
-      func: makeOrange,
+      func: changeBgColor,
       args: [color]
     })
     .then();
