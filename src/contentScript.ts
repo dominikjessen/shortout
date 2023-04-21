@@ -31,12 +31,14 @@ function hideShortsFromSubscriptionsGridPage(nodeToObserve: Element | Document) 
           node.nodeName === 'YTD-THUMBNAIL-OVERLAY-TIME-STATUS-RENDERER' &&
           node.getAttribute('overlay-style') === 'SHORTS'
         ) {
-          return node.closest('ytd-grid-video-renderer') as HTMLElement;
+          return node;
         }
       }) as HTMLElement[];
 
-      if (newShorts.length > 0) {
-        newShorts.forEach((node) => node.remove());
+      const removalArray = newShorts.map((node) => node.closest('ytd-grid-video-renderer'));
+
+      if (removalArray.length > 0) {
+        removalArray.forEach((node) => node?.remove());
       }
     });
   });
