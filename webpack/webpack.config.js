@@ -4,7 +4,8 @@ module.exports = {
   mode: 'production',
   entry: {
     background: path.resolve(__dirname, '..', 'src', 'background.ts'),
-    contentScript: path.resolve(__dirname, '..', 'src', 'contentScript.ts')
+    contentScript: path.resolve(__dirname, '..', 'src', 'contentScript.ts'),
+    popup: path.resolve(__dirname, '..', 'src', 'popup.ts')
   },
   output: {
     path: path.join(__dirname, '../dist'),
@@ -24,7 +25,7 @@ module.exports = {
   },
   plugins: [
     new CopyPlugin({
-      patterns: [{ from: '.', to: '.', context: 'public' }, './manifest.json']
+      patterns: [{ from: '.', to: '.', context: 'public' }, './manifest.json', './src/popup.html', './src/popup.css']
     })
   ]
 };

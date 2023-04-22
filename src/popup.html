@@ -1,0 +1,29 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+
+<body style="width: 400px">
+  <div>
+    Image
+    Shorts be Gone
+
+    Whitelist a channel
+    Type channel names as seen on (ytd-channel-name with id channel-name)
+    [...document.querySelectorAll('ytd-channel-name')].map((node) => node.innerText)
+    <div>
+      <label for="channel">Channel name</label>
+      <input name="channel" type="text" placeholder="Channel name to whitelist" />
+    </div>
+
+    Whitelisted
+    <div id="whitelist-container" />
+
+  </div>
+
+  <!-- Script to control user options -->
+  <script src="popup.js"></script>
+</body>
+
+</html>

@@ -23,5 +23,7 @@
     "js": ["contentScript.js"],
     "runAt": "document_idle"
   }],
-  "action": {}
+  "action": {
+    "default_popup": "popup.html"
+  }
 }
