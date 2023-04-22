@@ -10,7 +10,8 @@
     "128": "./icon-128.png"
   },
   "permissions": [
-    "tabs"
+    "tabs",
+    "storage"
   ],
   "host_permissions": [
     "https://*.youtube.com/*"

@@ -12,10 +12,11 @@
     Whitelist a channel
     Type channel names as seen on (ytd-channel-name with id channel-name)
     [...document.querySelectorAll('ytd-channel-name')].map((node) => node.innerText)
-    <div>
+    <div style="display: flex">
       <label for="channel">Channel name</label>
-      <input name="channel" type="text" placeholder="Channel name to whitelist" />
+      <input id="new-whitelist-input" name="channel" type="text" placeholder="Channel name to whitelist" />
     </div>
+    <button id="add-button">Add</button>
 
     Whitelisted
     <div id="whitelist-container" />

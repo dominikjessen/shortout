@@ -1,27 +1,35 @@
-function constructWhitelistElements() {
-  const channels = getStoredWhitelistChannels();
-  let str = '<ul>';
+async function constructWhitelistElements() {
+  const channels: string[] = await getStoredWhitelistChannels();
+  let list = '<ul id="whitelist" >';
 
-  channels.forEach(function (channel) {
-    str += '<li>' + channel + '</li>';
+  channels.forEach(function (channel: string) {
+    list += `<li>${channel}</li>`;
   });
 
-  str += '</ul>';
-  document.getElementById('whitelist-container')!.innerHTML = str; // Asserting that this is in the popup html
+  list += '</ul>';
+  document.getElementById('whitelist-container')!.innerHTML += list; // Asserting that this is in the popup html
 }
 
-function getStoredWhitelistChannels(): string[] {
-  // TODO: Get channels from chrome storage
-
-  const userWhitelist = ['channel 1', 'channel 2', 'channel 3', 'channel 4', 'channel 5'];
-
-  return userWhitelist;
+async function getStoredWhitelistChannels(): Promise<string[]> {
+  const userWhitelist = await chrome.storage.local.get(['whitelist']);
+  return userWhitelist.whitelist;
 }
 
-function whitelistNewChannel(channelName: string) {
-  // TODO: Add channel name to chrome storage
+async function whitelistNewChannel() {
+  const input = document.getElementById('new-whitelist-input') as HTMLInputElement;
+  if (!input.value) return;
+
+  const store = await chrome.storage.local.get(['whitelist']);
+  const currentWhitelist = store?.whitelist || [];
+
+  await chrome.storage.local.set({ whitelist: [...currentWhitelist, input.value] });
+
+  document.getElementById('whitelist')!.innerHTML += `<li>${input.value}</li>`; // Asserting that this is in the popup html
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   constructWhitelistElements();
+
+  const addBtn = document.getElementById('add-button');
+  addBtn?.addEventListener('click', whitelistNewChannel);
 });
