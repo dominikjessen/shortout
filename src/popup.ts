@@ -1,13 +1,20 @@
+function createWhitelistBaseElement() {
+  const list = '<ul id="whitelist"></ul>';
+  document.getElementById('whitelist-container')!.innerHTML += list; // Asserting that this is in the popup html
+}
+
 async function constructWhitelistElements() {
   const channels: string[] = await getStoredWhitelistChannels();
-  let list = '<ul id="whitelist" >';
+  if (channels.length > 0) {
+    createWhitelistBaseElement();
+    let itemsForList = '';
 
-  channels.forEach(function (channel: string) {
-    list += `<li>${channel}</li>`;
-  });
+    channels.forEach(function (channel: string) {
+      itemsForList += `<li>${channel}</li>`;
+    });
 
-  list += '</ul>';
-  document.getElementById('whitelist-container')!.innerHTML += list; // Asserting that this is in the popup html
+    document.getElementById('whitelist')!.innerHTML += itemsForList; // Asserting that this is in the popup html
+  }
 }
 
 async function getStoredWhitelistChannels(): Promise<string[]> {
@@ -21,10 +28,18 @@ async function whitelistNewChannel() {
 
   const store = await chrome.storage.local.get(['whitelist']);
   const currentWhitelist = store?.whitelist || [];
+  if (currentWhitelist.length === 0) {
+    createWhitelistBaseElement();
+  }
 
   await chrome.storage.local.set({ whitelist: [...currentWhitelist, input.value] });
 
   document.getElementById('whitelist')!.innerHTML += `<li>${input.value}</li>`; // Asserting that this is in the popup html
+}
+
+async function clearWhitelist() {
+  await chrome.storage.local.set({ whitelist: [] });
+  document.getElementById('whitelist')?.remove();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -32,4 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const addBtn = document.getElementById('add-button');
   addBtn?.addEventListener('click', whitelistNewChannel);
+
+  const clearWhitelistBtn = document.getElementById('clear-whitelist-button');
+  clearWhitelistBtn?.addEventListener('click', clearWhitelist);
 });
