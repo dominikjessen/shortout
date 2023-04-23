@@ -5,14 +5,19 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack/webpack.config.js"
+    "build:tailwind": "NODE_ENV=production postcss src/tailwind.css -o dist/tailwind.dist.css",
+    "build": "npm run build:tailwind && webpack --config webpack/webpack.config.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/chrome": "^0.0.233",
+    "autoprefixer": "^10.4.14",
     "copy-webpack-plugin": "^11.0.0",
+    "postcss-cli": "^10.1.0",
+    "postcss-loader": "^7.2.4",
+    "tailwindcss": "^3.3.1",
     "ts-loader": "^9.4.2",
     "typescript": "^5.0.4",
     "webpack": "^5.79.0",

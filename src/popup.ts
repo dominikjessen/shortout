@@ -1,19 +1,28 @@
 function createWhitelistBaseElement() {
-  const list = '<ul id="whitelist"></ul>';
-  document.getElementById('whitelist-container')!.innerHTML += list; // Asserting that this is in the popup html
+  const list = document.createElement('ul');
+  list.setAttribute('id', 'whitelist');
+  list.classList.add('list-desc');
+  // const list = '<ul id="whitelist" class="list-desc"></ul>';
+  document.getElementById('whitelist-container')!.appendChild(list); // Asserting that this is in the popup html
 }
 
 async function constructWhitelistElements() {
   const channels: string[] = await getStoredWhitelistChannels();
   if (channels.length > 0) {
     createWhitelistBaseElement();
-    let itemsForList = '';
+    // let itemsForList = '';
+    const whitelistElement = document.getElementById('whitelist');
 
     channels.forEach(function (channel: string) {
-      itemsForList += `<li>${channel}</li>`;
+      const listItem = document.createElement('li');
+      listItem.classList.add('flex', 'text-green', 'text-bold');
+      listItem.textContent = channel;
+      whitelistElement?.appendChild(listItem);
+
+      // itemsForList += `<li class="flex text-green text-bold">${channel}</li>`;
     });
 
-    document.getElementById('whitelist')!.innerHTML += itemsForList; // Asserting that this is in the popup html
+    // document.getElementById('whitelist')!.innerHTML += itemsForList; // Asserting that this is in the popup html
   }
 }
 
