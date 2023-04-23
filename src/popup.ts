@@ -1,7 +1,7 @@
 function createWhitelistBaseElement() {
   const list = document.createElement('ul');
   list.setAttribute('id', 'whitelist');
-  list.classList.add('list-desc');
+  list.classList.add('list-disc');
   // const list = '<ul id="whitelist" class="list-desc"></ul>';
   document.getElementById('whitelist-container')!.appendChild(list); // Asserting that this is in the popup html
 }
@@ -15,7 +15,7 @@ async function constructWhitelistElements() {
 
     channels.forEach(function (channel: string) {
       const listItem = document.createElement('li');
-      listItem.classList.add('flex', 'text-green', 'text-bold');
+      listItem.classList.add('flex', 'text-green-200', 'text-bold', 'border-2', 'border-slate-200', 'px-12', 'py-8');
       listItem.textContent = channel;
       whitelistElement?.appendChild(listItem);
 
