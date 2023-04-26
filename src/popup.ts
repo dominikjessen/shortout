@@ -5,7 +5,7 @@ function createWhitelistBaseElement() {
 
 // Helper function to make style changes easy
 function liHtmlString(text: string): string {
-  return `<li class="py-2 px-3 hover:bg-rose-100 rounded flex text-base"><img src="/icons/play.svg" alt="play button" class="" /><span class="text-neutral-800 px-3 grow cursor-default">${text}</span><button class="delete-whitelist-entry hover:fill-blue-500"><img src="/icons/trash.svg" alt="delete button" /></button></li>`;
+  return `<li class="py-2 px-3 hover:bg-rose-100 rounded flex text-base group"><img src="/icons/play.svg" alt="play button" class="" /><span class="text-neutral-800 px-3 grow cursor-default">${text}</span><button class="delete-whitelist-entry hidden group-hover:block"><img src="/icons/trash.svg" alt="delete button" /></button></li>`;
 }
 
 async function constructWhitelistElements() {
