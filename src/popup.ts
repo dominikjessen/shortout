@@ -1,11 +1,11 @@
 function createWhitelistBaseElement() {
-  const list = '<ul id="whitelist" class="list-none flex flex-col gap-1"></ul>';
+  const list = '<ul id="whitelist" class="list-none flex flex-col gap-1.5"></ul>';
   document.getElementById('whitelist-container')!.innerHTML += list; // Asserting that this is in the popup html
 }
 
 // Helper function to make style changes easy
 function liHtmlString(text: string): string {
-  return `<li class="py-2 px-3 hover:bg-rose-100 rounded flex border-2 border-slate-500 text-base"><span class="text-rose-400">XX</span><span class="text-neutral-800 px-2 grow cursor-default">${text}</span><span class="text-bold text-rose-400">YY</span></li>`;
+  return `<li class="py-2 px-3 hover:bg-rose-100 rounded flex text-base"><img src="/icons/play.svg" alt="play button" class="" /><span class="text-neutral-800 px-3 grow cursor-default">${text}</span><span class="text-bold text-rose-400">YY</span></li>`;
 }
 
 async function constructWhitelistElements() {
