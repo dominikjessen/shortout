@@ -43,6 +43,8 @@ async function whitelistNewChannel() {
   await chrome.storage.local.set({ whitelist: [...currentWhitelist, input.value] });
 
   document.getElementById('whitelist')!.innerHTML += liHtmlString(input.value); // Asserting that this is in the popup html
+
+  input.value = '';
 }
 
 async function clearWhitelist() {
