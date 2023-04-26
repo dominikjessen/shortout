@@ -1,10 +1,15 @@
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 module.exports = {
   content: ['./*.{html,ts,js}', './src/**/*.{html,js,ts}'],
   theme: {
     minWidth: {
       0: '0',
-      popup: '350px',
+      popup: '450px',
       full: '100%'
+    },
+    fontFamily: {
+      sans: ['Roboto', ...defaultTheme.fontFamily.sans]
     },
     extend: {}
   },

@@ -1,5 +1,5 @@
 function createWhitelistBaseElement() {
-  const list = '<ul id="whitelist" class="list-none flex flex-col gap-1.5"></ul>';
+  const list = '<ul id="whitelist" class="list-none flex flex-col gap-1.5 overflow-auto h-full"></ul>';
   document.getElementById('whitelist-container')!.innerHTML += list; // Asserting that this is in the popup html
 }
 

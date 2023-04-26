@@ -8,25 +8,51 @@
   <link rel="stylesheet" href="tailwind.dist.css" />
 </head>
 
-<body style="width: 400px">
-  <div>
-    <p class="text-green-200">Shorts be Gone</p>
-    <p>Whitelist a channel</p>
-    <button id="clear-whitelist-button">Clear whitelist</button>
-    <div class="flex flex-col">
-      <div class="flex flex-col">
-        <label for="channel">Channel name</label>
-        <input id="new-whitelist-input" name="channel" type="text" placeholder="Channel name to whitelist" />
+<body class="font-sans">
+  <div class="w-96 max-h-[34rem] flex flex-col">
+
+    <!-- Header bar -->
+    <div class="flex gap-3 border-b-2 border-b-neutral-200 px-6 py-3 items-center">
+      <img src="/logos/icon-32.png" alt="Logo" class="w-6 h-6" />
+      <span class="text-lg text-rose-400 text-bold grow">Shorts be Gone</span>
+      <button class="w-8 h-8 bg-white hover:bg-neutral-100 rounded">
+        <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" class="m-auto">
+          <path stroke="#737373" stroke-width="2" stroke-linecap="round"
+            d="m2.327 2.052 11.565 11.565m-11.784 0L13.673 2.052" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Main content -->
+    <div class="flex flex-col gap-6 px-6 py-3">
+      <!-- Add new channel to whitelist [explanation] -->
+      <div class="flex flex-col gap-2">
+        <h1 class="text-neutral-800 text-lg text-bold">Whitelist</h1>
+        <p class="text-sm text-neutral-600">Add channel names to your whitelist. Whitelisted channel's shorts will not
+          be
+          removed.</p>
       </div>
-      <button id="add-button"
-        class="w-32 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add</button>
+
+      <!-- Add new channel to whitelist [action] -->
+      <div class="flex gap-4">
+        <input id="new-whitelist-input" name="channel" type="text" placeholder="Type a channel name..."
+          class="rounded bg-neutral-100 hover:bg-neutral-200 focus:bg-neutral-200 focus-visible:outline-0 px-2 text-base text-neutral-800 placeholder:text-neutral-400 grow" />
+        <button id="add-button" class="w-10 h-10 bg-rose-400 hover:bg-rose-600 text-white font-bold p-1 rounded">
+          <img src="icons/plus.svg" alt="Add" class="m-auto" />
+        </button>
+      </div>
+
+      <!-- Whitelist -->
+      <div class="h-72 w-full pb-4">
+        <div class="flex justify-between pb-3">
+          <span class="text-sm text-bold">Channels</span>
+          <button id="clear-whitelist-button" class="text-rose-400 hover:text-rose-600 text-sm text-bold">Clear
+            whitelist</button>
+        </div>
+        <div id="whitelist-container" class="h-full">
+        </div>
+      </div>
     </div>
-
-    <div id="whitelist-container">
-      <h3>Whitelisted Channels</h3>
-    </div>
-
-
   </div>
 
   <!-- Script to control user options -->
