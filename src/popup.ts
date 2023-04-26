@@ -53,6 +53,9 @@ async function clearWhitelist() {
 document.addEventListener('DOMContentLoaded', () => {
   constructWhitelistElements();
 
+  const closeBtn = document.getElementById('popup-close');
+  closeBtn?.addEventListener('click', () => window.close());
+
   const addBtn = document.getElementById('add-button');
   addBtn?.addEventListener('click', whitelistNewChannel);
 
