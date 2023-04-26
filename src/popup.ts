@@ -1,28 +1,27 @@
 function createWhitelistBaseElement() {
-  const list = document.createElement('ul');
-  list.setAttribute('id', 'whitelist');
-  list.classList.add('list-disc');
-  // const list = '<ul id="whitelist" class="list-desc"></ul>';
-  document.getElementById('whitelist-container')!.appendChild(list); // Asserting that this is in the popup html
+  const list = '<ul id="whitelist" class="list-none flex flex-col gap-1"></ul>';
+  document.getElementById('whitelist-container')!.innerHTML += list; // Asserting that this is in the popup html
+}
+
+// Helper function to make style changes easy
+function liHtmlString(text: string): string {
+  return `<li class="py-2 px-3 hover:bg-rose-100 rounded flex border-2 border-slate-500 text-base"><span class="text-rose-400">XX</span><span class="text-neutral-800 px-2 grow cursor-default">${text}</span><span class="text-bold text-rose-400">YY</span></li>`;
 }
 
 async function constructWhitelistElements() {
   const channels: string[] = await getStoredWhitelistChannels();
   if (channels.length > 0) {
     createWhitelistBaseElement();
-    // let itemsForList = '';
-    const whitelistElement = document.getElementById('whitelist');
+    let itemsForList = '';
+    // const whitelistElement = document.getElementById('whitelist');
 
+    // TODO: Add play button and add trahs can icon
+    // TODO: For trash can, add eventlistener to delete this channel from the list and remove element from DOM
     channels.forEach(function (channel: string) {
-      const listItem = document.createElement('li');
-      listItem.classList.add('flex', 'text-green-200', 'text-bold', 'border-2', 'border-slate-200', 'px-12', 'py-8');
-      listItem.textContent = channel;
-      whitelistElement?.appendChild(listItem);
-
-      // itemsForList += `<li class="flex text-green text-bold">${channel}</li>`;
+      itemsForList += liHtmlString(channel);
     });
 
-    // document.getElementById('whitelist')!.innerHTML += itemsForList; // Asserting that this is in the popup html
+    document.getElementById('whitelist')!.innerHTML += itemsForList; // Asserting that this is in the popup html
   }
 }
 
@@ -43,7 +42,7 @@ async function whitelistNewChannel() {
 
   await chrome.storage.local.set({ whitelist: [...currentWhitelist, input.value] });
 
-  document.getElementById('whitelist')!.innerHTML += `<li>${input.value}</li>`; // Asserting that this is in the popup html
+  document.getElementById('whitelist')!.innerHTML += liHtmlString(input.value); // Asserting that this is in the popup html
 }
 
 async function clearWhitelist() {
