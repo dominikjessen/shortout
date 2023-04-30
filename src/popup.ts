@@ -3,9 +3,37 @@ function createWhitelistBaseElement() {
   document.getElementById('whitelist-container')!.innerHTML += list; // Asserting that this is in the popup html
 }
 
+async function removeWhitelistItem(event: Event) {
+  const target = event.target as HTMLElement;
+  const li = target.closest('li');
+  const channelToDelete = li?.innerText;
+
+  if (!channelToDelete) return;
+
+  // Update chrome storage
+  const currentWhitelist = await getStoredWhitelistChannels();
+  const index = currentWhitelist.indexOf(channelToDelete);
+  if (index !== -1) {
+    currentWhitelist.splice(index, 1);
+  }
+  await chrome.storage.local.set({ whitelist: currentWhitelist });
+
+  // Remove li
+  li.remove();
+}
+
+function registerDeleteButtonEventListeners() {
+  // Only match buttons that need an event listener
+  const deleteButtons = [...document.querySelectorAll('.delete-whitelist-entry.needs-event-listener')];
+  deleteButtons.forEach((btn) => {
+    btn.addEventListener('click', removeWhitelistItem);
+    btn.classList.remove('needs-event-listener');
+  });
+}
+
 // Helper function to make style changes easy
 function liHtmlString(text: string): string {
-  return `<li class="py-2 px-3 hover:bg-rose-100 dark:hover:bg-gray-800 rounded flex text-base group"><img src="/icons/play.svg" alt="play button" class="" /><span class="text-gray-800 dark:text-white px-3 grow cursor-default">${text}</span><button class="delete-whitelist-entry hidden group-hover:block"><img src="/icons/trash.svg" alt="delete button" /></button></li>`;
+  return `<li class="py-2 px-3 hover:bg-rose-100 dark:hover:bg-gray-800 rounded flex text-base group"><img src="/icons/play.svg" alt="play button" class="" /><span class="text-gray-800 dark:text-white px-3 grow cursor-default">${text}</span><button class="delete-whitelist-entry needs-event-listener hidden group-hover:block"><img src="/icons/trash.svg" alt="delete button" /></button></li>`;
 }
 
 async function constructWhitelistElements() {
@@ -41,31 +69,14 @@ async function whitelistNewChannel() {
 
   document.getElementById('whitelist')!.innerHTML += liHtmlString(input.value); // Asserting that this is in the popup html
 
+  registerDeleteButtonEventListeners();
+
   input.value = '';
 }
 
 async function clearWhitelist() {
   await chrome.storage.local.set({ whitelist: [] });
   document.getElementById('whitelist')?.remove();
-}
-
-async function removeWhitelistItem(event: Event) {
-  const target = event.target as HTMLElement;
-  const li = target.closest('li');
-  const channelToDelete = li?.innerText;
-
-  if (!channelToDelete) return;
-
-  // Update chrome storage
-  const currentWhitelist = await getStoredWhitelistChannels();
-  const index = currentWhitelist.indexOf(channelToDelete);
-  if (index !== -1) {
-    currentWhitelist.splice(index, 1);
-  }
-  await chrome.storage.local.set({ whitelist: currentWhitelist });
-
-  // Remove li
-  li.remove();
 }
 
 function forceLightMode() {
@@ -97,10 +108,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const clearWhitelistBtn = document.getElementById('clear-whitelist-button');
   clearWhitelistBtn?.addEventListener('click', clearWhitelist);
 
-  const deleteButtons = [...document.querySelectorAll('.delete-whitelist-entry')];
-  deleteButtons.forEach((btn) => {
-    btn.addEventListener('click', removeWhitelistItem);
-  });
+  registerDeleteButtonEventListeners();
 
   const darkModeToggle = document.getElementById('dark-mode-toggle');
   darkModeToggle?.addEventListener('click', forceDarkMode);
