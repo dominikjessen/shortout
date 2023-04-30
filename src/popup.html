@@ -8,17 +8,16 @@
   <link rel="stylesheet" href="tailwind.dist.css" />
 </head>
 
-<body class="font-sans">
+<body class="font-sans dark:bg-gray-900">
   <div class="w-96 max-h-[34rem] flex flex-col">
 
     <!-- Header bar -->
-    <div class="flex gap-3 border-b-2 border-b-neutral-200 px-6 py-3 items-center">
+    <div class="flex gap-3 border-b-2 border-b-gray-200 dark:border-b-gray-700 px-6 py-3 items-center">
       <img src="/logos/icon-32.png" alt="Logo" class="w-6 h-6" />
-      <span class="text-lg text-rose-400 font-bold grow">Shortaway</span>
-      <button id="popup-close" class="w-8 h-8 bg-white hover:bg-neutral-100 rounded">
-        <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" class="m-auto">
-          <path stroke="#737373" stroke-width="2" stroke-linecap="round"
-            d="m2.327 2.052 11.565 11.565m-11.784 0L13.673 2.052" />
+      <span class="text-lg text-rose-400 dark:text-rose-500 font-bold grow">Shortaway</span>
+      <button id="popup-close" class="w-8 h-8 hover:bg-gray-100 dark:hover:bg-gray-800 rounded">
+        <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" class="m-auto stroke-gray-500">
+          <path stroke-width="2" stroke-linecap="round" d="m2.327 2.052 11.565 11.565m-11.784 0L13.673 2.052" />
         </svg>
       </button>
     </div>
@@ -27,17 +26,41 @@
     <div class="flex flex-col gap-6 px-6 py-3">
       <!-- Add new channel to whitelist [explanation] -->
       <div class="flex flex-col gap-2">
-        <h1 class="text-neutral-800 text-lg font-bold">Whitelist</h1>
-        <p class="text-sm text-neutral-600">Add channel names to your whitelist. Whitelisted channel's shorts will not
-          be
-          removed.</p>
+        <div class="flex justify-between items-center">
+          <h1 class="text-gray-800 dark:text-white text-lg font-bold">Whitelist</h1>
+          <span class="dark:hidden">
+            <button id="dark-mode-toggle" class="w-8 h-8 hover:bg-gray-100 dark:hover:bg-gray-800 rounded">
+              <svg xmlns="http://www.w3.org/2000/svg" class="m-auto stroke-gray-500" width="18" height="18"
+                viewBox="0 0 24 24" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+              </svg>
+            </button>
+          </span>
+
+          <span class="hidden dark:block">
+            <button id="light-mode-toggle" class="w-8 h-8 hover:bg-gray-100 dark:hover:bg-gray-800 rounded">
+              <svg xmlns="http://www.w3.org/2000/svg" class="m-auto stroke-gray-500" width="18" height="18"
+                viewBox="0 0 24 24" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <circle cx="12" cy="12" r="4" />
+                <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" />
+              </svg>
+            </button>
+          </span>
+        </div>
+
+        <p class="text-sm text-gray-600 dark:text-gray-100">Add channel names to your whitelist. Whitelisted channel's
+          shorts will not be removed.
+        </p>
       </div>
 
       <!-- Add new channel to whitelist [action] -->
       <div class="flex gap-4">
         <input id="new-whitelist-input" name="channel" type="text" placeholder="Type a channel name..."
-          class="rounded bg-neutral-100 hover:bg-neutral-200 focus:bg-neutral-200 focus-visible:outline-0 px-2 text-base text-neutral-800 placeholder:text-neutral-400 grow" />
-        <button id="add-button" class="w-10 h-10 bg-rose-400 hover:bg-rose-500 text-white font-bold p-1 rounded">
+          class="rounded bg-gray-100 dark:bg-gray-200 hover:bg-gray-200 dark:hover:bg-gray-100 focus:bg-gray-200 dark:focus:bg-gray-100 focus-visible:outline-0 px-2 text-base text-gray-800 placeholder:text-gray-400 grow" />
+        <button id="add-button"
+          class="w-10 h-10 bg-rose-400 dark:bg-rose-500 hover:bg-rose-500 dark:hover:bg-rose-400 text-white font-bold p-1 rounded">
           <img src="icons/plus.svg" alt="Add" class="m-auto" />
         </button>
       </div>
@@ -45,8 +68,9 @@
       <!-- Whitelist -->
       <div class="h-72 w-full pb-4">
         <div class="flex justify-between pb-3">
-          <span class="text-sm font-bold">Channels</span>
-          <button id="clear-whitelist-button" class="text-rose-400 hover:text-rose-500 text-sm font-bold">Clear
+          <span class="text-gray-800 dark:text-white text-sm font-bold">Channels</span>
+          <button id="clear-whitelist-button"
+            class="text-rose-400 dark:text-rose-500 hover:text-rose-500 dark:hover:text-rose-400 text-sm font-bold">Clear
             whitelist</button>
         </div>
         <div id="whitelist-container" class="h-full">

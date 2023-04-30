@@ -5,7 +5,7 @@ function createWhitelistBaseElement() {
 
 // Helper function to make style changes easy
 function liHtmlString(text: string): string {
-  return `<li class="py-2 px-3 hover:bg-rose-100 rounded flex text-base group"><img src="/icons/play.svg" alt="play button" class="" /><span class="text-neutral-800 px-3 grow cursor-default">${text}</span><button class="delete-whitelist-entry hidden group-hover:block"><img src="/icons/trash.svg" alt="delete button" /></button></li>`;
+  return `<li class="py-2 px-3 hover:bg-rose-100 dark:hover:bg-gray-800 rounded flex text-base group"><img src="/icons/play.svg" alt="play button" class="" /><span class="text-gray-800 dark:text-white px-3 grow cursor-default">${text}</span><button class="delete-whitelist-entry hidden group-hover:block"><img src="/icons/trash.svg" alt="delete button" /></button></li>`;
 }
 
 async function constructWhitelistElements() {
@@ -68,7 +68,24 @@ async function removeWhitelistItem(event: Event) {
   li.remove();
 }
 
+function forceLightMode() {
+  localStorage.theme = 'light';
+  document.documentElement.classList.remove('dark');
+}
+
+function forceDarkMode() {
+  localStorage.theme = 'dark';
+  document.documentElement.classList.add('dark');
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
+  // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+  if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
+
   await constructWhitelistElements();
 
   const closeBtn = document.getElementById('popup-close');
@@ -84,4 +101,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   deleteButtons.forEach((btn) => {
     btn.addEventListener('click', removeWhitelistItem);
   });
+
+  const darkModeToggle = document.getElementById('dark-mode-toggle');
+  darkModeToggle?.addEventListener('click', forceDarkMode);
+
+  const lightModeToggle = document.getElementById('light-mode-toggle');
+  lightModeToggle?.addEventListener('click', forceLightMode);
 });

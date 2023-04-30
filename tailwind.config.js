@@ -1,6 +1,7 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
+  darkMode: 'class',
   content: ['./*.{html,ts,js}', './src/**/*.{html,js,ts}'],
   theme: {
     minWidth: {
