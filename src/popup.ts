@@ -13,10 +13,7 @@ async function constructWhitelistElements() {
   if (channels.length > 0) {
     createWhitelistBaseElement();
     let itemsForList = '';
-    // const whitelistElement = document.getElementById('whitelist');
 
-    // TODO: Add play button and add trahs can icon
-    // TODO: For trash can, add eventlistener to delete this channel from the list and remove element from DOM
     channels.forEach(function (channel: string) {
       itemsForList += liHtmlString(channel);
     });

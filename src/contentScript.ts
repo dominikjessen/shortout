@@ -4,7 +4,7 @@ function hideShortsSectionFromHomePage() {
   shortsSectionElement.remove();
 }
 
-// TODO: Bug - sometimes the refrehs doesn't seem to work correctly
+// TODO: Bug - sometimes the refresh doesn't seem to work correctly
 // This removes all shorts whenever they're added to the DOM immediately unless they're whitelisted
 function hideShortsFromSubscriptionsGridPage(nodeToObserve: Element | Document) {
   const observer = new MutationObserver(function (mutations) {
