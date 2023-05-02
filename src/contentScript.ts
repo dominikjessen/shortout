@@ -1,7 +1,7 @@
 // TODO: Bug - works only on refresh or when opening YT but not when navigating between pages
 function hideShortsSectionFromHomePage() {
-  const shortsSectionElement = document.querySelector('ytd-rich-shelf-renderer[is-shorts]')?.closest('ytd-rich-section-renderer') as HTMLElement;
-  shortsSectionElement.remove();
+  // const shortsSectionElement = document.querySelector('ytd-rich-shelf-renderer[is-shorts]')?.closest('ytd-rich-section-renderer') as HTMLElement;
+  // shortsSectionElement.remove();
 }
 
 // TODO: Bug - sometimes the refresh doesn't seem to work correctly
