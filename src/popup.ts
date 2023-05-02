@@ -89,6 +89,25 @@ function forceDarkMode() {
   document.documentElement.classList.add('dark');
 }
 
+async function getCurrentTab() {
+  const queryOptions = { active: true, lastFocusedWindow: true };
+  const [tab] = await chrome.tabs.query(queryOptions);
+  return tab;
+}
+
+function setActiveInactiveSpanText(active: boolean) {
+  const toggleInputColoredTextSpan = document.getElementById('extension-active-colored-span');
+
+  if (active) {
+    toggleInputColoredTextSpan?.classList.remove('text-red-700');
+    toggleInputColoredTextSpan?.classList.add('text-green-700');
+    toggleInputColoredTextSpan!.innerText = 'active';
+  } else {
+    toggleInputColoredTextSpan?.classList.remove('text-green-700');
+    toggleInputColoredTextSpan?.classList.add('text-red-700');
+    toggleInputColoredTextSpan!.innerText = 'inactive';
+  }
+}
 document.addEventListener('DOMContentLoaded', async () => {
   // On page load or when changing themes, best to add inline in `head` to avoid FOUC
   if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -97,10 +116,60 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.documentElement.classList.remove('dark');
   }
 
+  // Set base extension active state depending on user settings
+  const extensionActiveToggle = document.getElementById('extension-active') as HTMLInputElement;
+  const store = await chrome.storage.local.get(['tabExtensionActiveStates']);
+  let tabExtensionActiveStates = store.tabExtensionActiveStates;
+  const currentTab = await getCurrentTab();
+
+  if (currentTab && currentTab.id) {
+    let extensionActiveForThisTab = tabExtensionActiveStates[currentTab.id];
+    extensionActiveToggle.checked = extensionActiveForThisTab;
+    setActiveInactiveSpanText(extensionActiveForThisTab);
+
+    extensionActiveToggle?.addEventListener('change', async (event) => {
+      const target = event.target as HTMLInputElement;
+      tabExtensionActiveStates[currentTab.id!] = target.checked; // asserting that id exists
+      await chrome.storage.local.set({ tabExtensionActiveStates: tabExtensionActiveStates });
+
+      // Set colored text
+      setActiveInactiveSpanText(target.checked);
+
+      // Tell user to refresh page to apply changes
+      const toggleInputLabel = document.getElementById('extension-active-label');
+      const refreshButton = document.getElementById('toggle-refresh-page');
+      if (!refreshButton) {
+        const newRefreshButton = document.createElement('button');
+        newRefreshButton.id = 'toggle-refresh-page';
+        newRefreshButton.classList.add('w-8', 'h-8', 'hover:bg-gray-100', 'dark:hover:bg-gray-800', 'rounded');
+        newRefreshButton.innerHTML += `<svg xmlns="http://www.w3.org/2000/svg" class="m-auto stroke-gray-500" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
+        <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
+        </svg>`;
+
+        newRefreshButton.addEventListener('click', async () => {
+          await chrome.tabs.reload({ bypassCache: true });
+          document.getElementById('toggle-refresh-page')?.remove();
+        });
+
+        toggleInputLabel?.appendChild(newRefreshButton);
+      }
+    });
+  }
+
+  // Construct whitelist from storage
   await constructWhitelistElements();
 
+  // Register button event listeners
   const closeBtn = document.getElementById('popup-close');
   closeBtn?.addEventListener('click', () => window.close());
+
+  const darkModeToggle = document.getElementById('dark-mode-toggle');
+  darkModeToggle?.addEventListener('click', forceDarkMode);
+
+  const lightModeToggle = document.getElementById('light-mode-toggle');
+  lightModeToggle?.addEventListener('click', forceLightMode);
 
   const addBtn = document.getElementById('add-button');
   addBtn?.addEventListener('click', whitelistNewChannel);
@@ -109,10 +178,4 @@ document.addEventListener('DOMContentLoaded', async () => {
   clearWhitelistBtn?.addEventListener('click', clearWhitelist);
 
   registerDeleteButtonEventListeners();
-
-  const darkModeToggle = document.getElementById('dark-mode-toggle');
-  darkModeToggle?.addEventListener('click', forceDarkMode);
-
-  const lightModeToggle = document.getElementById('light-mode-toggle');
-  lightModeToggle?.addEventListener('click', forceLightMode);
 });

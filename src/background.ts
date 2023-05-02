@@ -5,9 +5,12 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
       pageType = 'SubscriptionsGrid';
     } else if (tab.url === 'https://www.youtube.com/') {
       pageType = 'Home';
+    } else {
+      pageType = 'Other';
     }
 
     chrome.tabs.sendMessage(tabId, {
+      tabId: tabId,
       pageType: pageType
     });
   }

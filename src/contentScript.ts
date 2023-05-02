@@ -69,15 +69,32 @@ function hideShortsFromSubscriptionsListPage() {
   // TODO
 }
 
-chrome.runtime.onMessage.addListener((obj, sender, response) => {
+chrome.runtime.onMessage.addListener(async (obj, sender, response) => {
+  if (obj.pageType === 'Other') return;
+
   if (obj.pageType === 'Home') {
     hideShortsSectionFromHomePage();
   }
 
   if (obj.pageType === 'SubscriptionsGrid') {
-    // TODO: It might be better to observe specific nodes
-    const nodeToObserve = document.querySelector('ytd-grid-renderer') || document; // fallback to observe entire DOM if can't find node
-    hideShortsFromSubscriptionsGridPage(nodeToObserve);
+    // TODO: For now I only care about the sub grid view. When I handle everything I'll pull out this code DRY
+    const store = await chrome.storage.local.get(['tabExtensionActiveStates']);
+    const tabExtensionActiveStates = store.tabExtensionActiveStates;
+    let extensionActiveForThisTab = tabExtensionActiveStates[obj.tabId];
+
+    // If not in list, add with 'active' true and hide
+    // else tell popup.ts to uncheck the toggle and set 'inactive' for this tab and return
+    if (extensionActiveForThisTab === null || extensionActiveForThisTab === undefined) {
+      extensionActiveForThisTab = true;
+      tabExtensionActiveStates[obj.tabId] = extensionActiveForThisTab;
+      await chrome.storage.local.set({ tabExtensionActiveStates: tabExtensionActiveStates });
+    }
+
+    if (extensionActiveForThisTab) {
+      // NOTE: It might be better to observe specific nodes instead of the parent?
+      const nodeToObserve = document.querySelector('ytd-grid-renderer') || document; // fallback to observe entire DOM if can't find node
+      hideShortsFromSubscriptionsGridPage(nodeToObserve);
+    }
   }
 
   if (obj.pageType === 'SubscriptionsList') {
