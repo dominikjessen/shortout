@@ -13,6 +13,8 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     let pageType;
     if (tab.url?.includes('subscriptions')) {
       pageType = 'SubscriptionsGrid';
+    } else if (tab.url?.includes('/results')) {
+      pageType = 'Search';
     } else if (tab.url === 'https://www.youtube.com/') {
       pageType = 'Home';
     } else {
