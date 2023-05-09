@@ -151,6 +151,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         newRefreshButton.addEventListener('click', async () => {
           await chrome.tabs.reload({ bypassCache: true });
           document.getElementById('toggle-refresh-page')?.remove();
+          window.close();
         });
 
         toggleInputLabel?.appendChild(newRefreshButton);
