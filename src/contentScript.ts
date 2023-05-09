@@ -69,8 +69,8 @@ function hideShortsFromSubscriptionsListPage() {
   // TODO
 }
 
-chrome.runtime.onMessage.addListener(async (obj, sender, response) => {
-  if (obj.pageType === 'Other') return;
+async function onReady(obj: any) {
+  if (obj.pageType === 'Other' || obj.pageType === 'Search') return;
 
   if (obj.pageType === 'Home') {
     hideShortsSectionFromHomePage();
@@ -98,7 +98,10 @@ chrome.runtime.onMessage.addListener(async (obj, sender, response) => {
   }
 
   if (obj.pageType === 'SubscriptionsList') {
-    console.log('sub list');
     hideShortsFromSubscriptionsListPage();
   }
+}
+
+chrome.runtime.onMessage.addListener(async (obj, sender, response) => {
+  onReady(obj);
 });
