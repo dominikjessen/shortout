@@ -76,19 +76,27 @@
         <div id="whitelist-container" class="h-full">
         </div>
       </div>
+    </div>
 
-
-      <div class="border-t-2 border-t-gray-200 dark:border-t-gray-700">
-        <label id="extension-active-label" class="relative inline-flex items-center mb-5 cursor-pointer">
-          <input id="extension-active" type="checkbox" value="extensionActive" class="sr-only peer" checked />
-          <div
-            class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-rose-300 dark:peer-focus:ring-rose-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-rose-600">
-          </div>
-          <span id="extension-active-text" class="pl-3 text-sm text-gray-900 dark:text-gray-300">Shortaway
-            is <span id="extension-active-colored-span" class="text-green-700">active</span> on this tab.
-          </span>
-        </label>
-      </div>f
+    <!-- Bottom bar -->
+    <div class="flex border-t-2 border-t-gray-200 dark:border-t-gray-700 px-6 py-3 items-center">
+      <label id="extension-active-label" class="relative inline-flex gap-3 items-center cursor-pointer">
+        <input id="extension-active" type="checkbox" value="extensionActive" class="sr-only peer" checked />
+        <div
+          class="grow w-10 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-rose-300 dark:peer-focus:ring-rose-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-rose-600">
+        </div>
+        <span id="extension-active-text" class="text-sm text-gray-900 dark:text-gray-300">Shortaway
+          is <span id="extension-active-colored-span" class="text-green-700">active</span> on this tab.
+        </span>
+        <button id="toggle-refresh-page" class="hidden w-8 h-8 hover:bg-gray-100 dark:hover:bg-gray-800 rounded">
+          <svg xmlns="http://www.w3.org/2000/svg" class="m-auto stroke-gray-500" width="16" height="16"
+            viewBox="0 0 24 24" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
+            <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
+          </svg>
+        </button>
+      </label>
     </div>
   </div>
 

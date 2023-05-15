@@ -136,26 +136,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       setActiveInactiveSpanText(target.checked);
 
       // Tell user to refresh page to apply changes
-      const toggleInputLabel = document.getElementById('extension-active-label');
       const refreshButton = document.getElementById('toggle-refresh-page');
-      if (!refreshButton) {
-        const newRefreshButton = document.createElement('button');
-        newRefreshButton.id = 'toggle-refresh-page';
-        newRefreshButton.classList.add('w-8', 'h-8', 'hover:bg-gray-100', 'dark:hover:bg-gray-800', 'rounded');
-        newRefreshButton.innerHTML += `<svg xmlns="http://www.w3.org/2000/svg" class="m-auto stroke-gray-500" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-        <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
-        <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
-        </svg>`;
-
-        newRefreshButton.addEventListener('click', async () => {
-          await chrome.tabs.reload({ bypassCache: true });
-          document.getElementById('toggle-refresh-page')?.remove();
-          window.close();
-        });
-
-        toggleInputLabel?.appendChild(newRefreshButton);
-      }
+      refreshButton!.style.display = 'block';
     });
   }
 
@@ -177,6 +159,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const clearWhitelistBtn = document.getElementById('clear-whitelist-button');
   clearWhitelistBtn?.addEventListener('click', clearWhitelist);
+
+  const refreshButton = document.getElementById('toggle-refresh-page');
+  refreshButton?.addEventListener('click', async () => {
+    await chrome.tabs.reload({ bypassCache: true });
+    refreshButton.style.display = 'none';
+    window.close();
+  });
 
   registerDeleteButtonEventListeners();
 });
