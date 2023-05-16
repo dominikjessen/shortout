@@ -6,7 +6,7 @@ function hideShortsSectionFromHomePage() {
 
 // TODO: Bug - sometimes the refresh doesn't seem to work correctly
 // This removes all shorts whenever they're added to the DOM immediately unless they're whitelisted
-function hideShortsFromSubscriptionsGridPage(nodeToObserve: Element | Document) {
+function hideShortsFromSubscriptionsGridPage(nodeToObserve: Element) {
   const observer = new MutationObserver(function (mutations) {
     mutations.forEach(function (mutation) {
       const newShorts = [...mutation.addedNodes].filter((node) => {
@@ -91,8 +91,7 @@ async function onReady(obj: any) {
     }
 
     if (extensionActiveForThisTab) {
-      // NOTE: It might be better to observe specific nodes instead of the parent?
-      const nodeToObserve = document.querySelector('ytd-grid-renderer') || document; // fallback to observe entire DOM if can't find node
+      const nodeToObserve = document.body; // If checking for a specific node, due to YT rendering sometimes doesn't work
       hideShortsFromSubscriptionsGridPage(nodeToObserve);
     }
   }
