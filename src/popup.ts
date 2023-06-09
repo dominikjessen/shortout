@@ -109,7 +109,7 @@ function setActiveInactiveSpanText(active: boolean) {
   }
 }
 document.addEventListener('DOMContentLoaded', async () => {
-  // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+  // Handle dark mode
   if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
     document.documentElement.classList.add('dark');
   } else {
