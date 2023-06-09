@@ -5,6 +5,8 @@ function hideShortsSectionFromHomePage() {
 }
 
 // TODO: Bug - sometimes the refresh doesn't seem to work correctly
+// TODO: If things don't work properly handle gracefully
+// TODO: If no nodes found -> Try again after timeout?
 // This removes all shorts whenever they're added to the DOM immediately unless they're whitelisted
 function hideShortsFromSubscriptionsGridPage(nodeToObserve: Element) {
   const observer = new MutationObserver(function (mutations) {
