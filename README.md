@@ -2,15 +2,13 @@
   <a href="https://github.com/dominikjessen/hide-yt-shorts">
    <img src="/public/logos/icon-128.png" alt="Logo">
   </a>
-
   <h1 align="center">Shortout</h1>
-
   <p align="center">
     Hide unwanted YouTube Shorts from your Subscription page.
   </p>
 </p>
 
-## Note: Since July 2023's YouTube update this extension no longer works and isn't needed!
+### Note: Since July 2023's YouTube update this extension no longer works and isn't needed!
 
 ## About Shortout
 

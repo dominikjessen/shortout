@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Shortout",
-  "description": "Sort out unwanted Shorts from YouTube Subscription page",
+  "description": "Sort out unwanted Shorts from your YouTube Subscription page",
   "author": "Dominik Jessen",
   "version": "1.0.0",
   "icons": {

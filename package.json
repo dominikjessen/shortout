@@ -1,15 +1,14 @@
 {
-  "name": "hide-yt-shorts",
+  "name": "shortout",
   "version": "1.0.0",
-  "description": "",
+  "description": "A YouTube Shorts removal tool",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build:tailwind": "NODE_ENV=production postcss src/tailwind.css -o dist/tailwind.dist.css",
     "build": "npm run build:tailwind && webpack --config webpack/webpack.config.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["YouTube", "Shorts", "Shortout"],
+  "author": "Dominik Jessen",
   "license": "ISC",
   "devDependencies": {
     "@types/chrome": "^0.0.233",
