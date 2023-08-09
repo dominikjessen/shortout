@@ -1,22 +1,39 @@
-# YouTube Shorts Remover
+<p align="center">
+  <a href="https://github.com/dominikjessen/hide-yt-shorts">
+   <img src="/public/logos/icon-128.png" alt="Logo">
+  </a>
 
-A Chrome extension that removes Shorts from YouTube pages. Click it to get rid of all shorts on the page without affecting the remaining functionality.
+  <h1 align="center">Shortout</h1>
 
-# Dev Workflow
+  <p align="center">
+    Hide unwanted YouTube Shorts from your Subscription page.
+  </p>
+</p>
 
-- Make changes
-- Run `npm run build`
-- Go to Chrome Extensions Manager
-- Hit `Refresh`
-- See the changes
+## Note: Since July 2023's YouTube update this extension no longer works and isn't needed!
 
-# CSS Selectors for nodes
+## About Shortout
 
-1. node.nodeName === 'YTD-THUMBNAIL-OVERLAY-TIME-STATUS-RENDERER' && node.getAttribute('overlay-style') === 'SHORTS'
-2. node.nodeName === 'A' && node.getAttribute('href').includes('/shorts/')
+Shortout was a Chrome extension built to remove unwanted Shorts from the YouTube subscription page. With YouTube's July 2023 update that changed the subscription page layout - YT moved Shorts into its own section on the page - this extension is no longer necessary and won't work as intended. I'm keeping it up mostly for demonstration purposes and have no intention of pushing it to the Chrome Extension Store.
 
-# TODO
+### Product Images
 
-- Check if the extension works always if changing observer to check document.body
-- Check if I need to rewrite observer to look for changes to DOM where a fitting element is added
-- Check if my observer should check for overlay-style attribute change (https://www.smashingmagazine.com/2019/04/mutationobserver-api-guide/)
+<p align='center'>
+  <img width="40%" src="/public/product/01_Shortout_LightMode.png" />
+  <img width="40%" src="/public/product/02_Shortout_DarkMode.png" />
+</p>
+
+## Setup
+
+1. First, clone the repo and run
+
+```sh
+npm install
+npm run build
+```
+
+This will generate a _dist_ folder containing the built extension.
+
+2. Open your [Chrome Extension Manager](chrome://extensions/) and enable Developer mode.
+
+3. Click _Load unpacked_ and select the _dist_ folder. Done - Shortout should now be installed in your Chrome browser.
