@@ -11,7 +11,7 @@ function hideShortsFromSubscriptionsGridPage(nodeToObserve: Element) {
           return node;
         }
       }) as HTMLElement[];
-      const removalArray = newShorts.map((node) => node.closest('ytd-rich-item-renderer')) as HTMLElement[];
+      const removalArray = newShorts.map((node) => node.closest('ytd-grid-video-renderer')) as HTMLElement[];
 
       retainWhitelistedChannels(removalArray).then((cleanedList: HTMLElement[]) => {
         if (cleanedList.length > 0) {
