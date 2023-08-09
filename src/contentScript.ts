@@ -1,12 +1,3 @@
-// TODO: Bug - works only on refresh or when opening YT but not when navigating between pages
-function hideShortsSectionFromHomePage() {
-  // const shortsSectionElement = document.querySelector('ytd-rich-shelf-renderer[is-shorts]')?.closest('ytd-rich-section-renderer') as HTMLElement;
-  // shortsSectionElement.remove();
-}
-
-// TODO: Bug - sometimes the refresh doesn't seem to work correctly
-// TODO: If things don't work properly handle gracefully
-// TODO: If no nodes found -> Try again after timeout?
 // This removes all shorts whenever they're added to the DOM immediately unless they're whitelisted
 function hideShortsFromSubscriptionsGridPage(nodeToObserve: Element) {
   const observer = new MutationObserver(function (mutations) {
@@ -67,19 +58,10 @@ async function retainWhitelistedChannels(shorts: HTMLElement[]): Promise<HTMLEle
   return whitelistCleaned;
 }
 
-function hideShortsFromSubscriptionsListPage() {
-  // TODO
-}
-
 async function onReady(obj: any) {
-  if (obj.pageType === 'Other' || obj.pageType === 'Search') return;
-
-  if (obj.pageType === 'Home') {
-    hideShortsSectionFromHomePage();
-  }
+  if (obj.pageType === 'Other' || obj.pageType === 'Search' || obj.pageType === 'Home' || obj.pageType === 'SubscriptionsList') return;
 
   if (obj.pageType === 'SubscriptionsGrid') {
-    // TODO: For now I only care about the sub grid view. When I handle everything I'll pull out this code DRY
     const store = await chrome.storage.local.get(['tabExtensionActiveStates']);
     const tabExtensionActiveStates = store.tabExtensionActiveStates;
     let extensionActiveForThisTab = tabExtensionActiveStates[obj.tabId];
@@ -97,12 +79,8 @@ async function onReady(obj: any) {
       hideShortsFromSubscriptionsGridPage(nodeToObserve);
     }
   }
-
-  if (obj.pageType === 'SubscriptionsList') {
-    hideShortsFromSubscriptionsListPage();
-  }
 }
 
-chrome.runtime.onMessage.addListener(async (obj, sender, response) => {
+chrome.runtime.onMessage.addListener(async (obj, _sender, _response) => {
   onReady(obj);
 });

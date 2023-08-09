@@ -40,7 +40,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   }
 });
 
-chrome.tabs.onRemoved.addListener(async (tabId, removeInfo) => {
+chrome.tabs.onRemoved.addListener(async (tabId, _removeInfo) => {
   const { tabExtensionActiveStates } = await getCurrentChromeStore();
   if (tabExtensionActiveStates.hasOwnProperty(tabId)) {
     delete tabExtensionActiveStates[tabId];

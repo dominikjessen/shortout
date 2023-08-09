@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     extensionActiveToggle?.addEventListener('change', async (event) => {
       const target = event.target as HTMLInputElement;
-      tabExtensionActiveStates[currentTab.id!] = target.checked; // asserting that id exists
+      tabExtensionActiveStates[currentTab.id!] = target.checked; // Asserting that id exists
       await chrome.storage.local.set({ tabExtensionActiveStates: tabExtensionActiveStates });
 
       // Set colored text
