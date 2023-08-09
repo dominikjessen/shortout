@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/dominikjessen/hide-yt-shorts">
+  <a href="https://github.com/dominikjessen/shortout">
    <img src="/public/logos/icon-128.png" alt="Logo" />
   </a>
   <h1 align="center">Shortout</h1>
