@@ -39,6 +39,6 @@ npm run build
 
 This will generate a _dist_ folder containing the built extension.
 
-2. Open your [Chrome Extension Manager](chrome://extensions/) and enable Developer mode.
+2. Open your Chrome Extension Manager (`chrome://extensions/`) and enable Developer mode.
 
 3. Click _Load unpacked_ and select the _dist_ folder. Done - Shortout should now be installed in your Chrome browser.
