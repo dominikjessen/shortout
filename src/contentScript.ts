@@ -27,7 +27,7 @@ function hideShortsFromSubscriptionsGridPage(nodeToObserve: Element) {
 
 /*
  ** This function cleans out any whitelisted channel from the array we want to remove elements from
- ** Note that the <shorts> array has to have a 'ytd-channel-name' in its DOM tree to find something
+ ** Note that the shorts array has to have a 'ytd-channel-name' in its DOM tree to find something
  */
 async function retainWhitelistedChannels(shorts: HTMLElement[]): Promise<HTMLElement[]> {
   if (shorts.length <= 0) {

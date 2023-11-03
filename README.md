@@ -15,11 +15,15 @@
 
 </p>
 
-#### Note: Since July 2023's YouTube update this extension no longer works and isn't needed!
+#### Note: Since July 2023's YouTube update this extension no longer works!
 
 ## About Shortout
 
 Shortout was a Chrome extension built to remove unwanted Shorts from the YouTube subscription page. With YouTube's July 2023 update that changed the subscription page layout - YT moved Shorts into its own section on the page - this extension is no longer necessary and won't work as intended. I'm keeping it up mostly for demonstration purposes and have no intention of pushing it to the Chrome Extension Store.
+
+### Tech Stack
+
+The extension was built without any JS framework, relying solely on JavaScript's DOM manipulation capabilities. To improve the DX it uses TypeScript and Tailwind, and bundles the extension using Webpack. As a Chrome extension, it of course relies on Chrome Extension API features, however these could've been replaced with native APIs (e.g. localStorage, tabs).
 
 ### Product Images
 
